@@ -12,7 +12,7 @@ except ImportError:
         pygame.draw.rect(screen, (0, 105, 148), (200, 420, 400, 130))
     def load_images():
         imgs = {}
-        for n in ['boat', 'farmer', 'wolf', 'sheep', 'cabbage', 'man2']:
+        for n in ['boat', 'farmer', 'wolf', 'sheep', 'cabbage']:
             s = pygame.Surface((60, 60), pygame.SRCALPHA)
             pygame.draw.circle(s, (200, 200, 200), (30, 30), 25)
             imgs[n] = s
@@ -22,14 +22,14 @@ class RiverGame:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((800, 550))
-        pygame.display.set_caption("AI Project: Farmer, Man2, Fox & Goat")
+        pygame.display.set_caption("AI Project: Farmer, Fox & Goat")
         self.images = load_images()
         self.font = pygame.font.SysFont('Arial', 22, bold=True)
         self.score = 0 
         self.reset_game()
 
     def reset_game(self):
-        self.side = {'wolf': 0, 'sheep': 0, 'cabbage': 0, 'man2': 0}
+        self.side = {'wolf': 0, 'sheep': 0, 'cabbage': 0}
         self.boat_side = 0
         self.passengers = [] 
         self.game_over = False
@@ -54,7 +54,7 @@ class RiverGame:
         else: right_bank.append('farmer')
 
         for area in [boat_zone, left_bank, right_bank]:
-            has_human = 'farmer' in area or 'man2' in area
+            has_human = 'farmer' in area
             if not has_human:
                 if 'wolf' in area and 'sheep' in area:
                     return True, "Game Over! Wolf ate the Sheep!"
@@ -70,14 +70,14 @@ class RiverGame:
             self.screen.blit(self.images['boat'], (bx, by))
             self.screen.blit(self.images['farmer'], (bx + 5, by - 55))
 
-            items_list = ['wolf', 'sheep', 'cabbage', 'man2']
+            items_list = ['wolf', 'sheep', 'cabbage']
             for item in items_list:
                 if item in self.passengers:
                     idx = self.passengers.index(item)
                     self.screen.blit(self.images[item], (bx + (65 if idx == 0 else 110), by - 45))
                 else:
                     base_x = 20 if self.side[item] == 0 else 620
-                    off = {'wolf': 0, 'sheep': 55, 'cabbage': 110, 'man2': 165}
+                    off = {'wolf': 0, 'sheep': 55, 'cabbage': 110}
                     self.screen.blit(self.images[item], (base_x + off[item], 320))
 
             score_surf = self.font.render(f"SCORE: {self.score}", True, (0, 0, 0))
@@ -136,7 +136,7 @@ class RiverGame:
                                     rect = pygame.Rect(bx + (65 if idx == 0 else 110), by - 45, 60, 60)
                                 else:
                                     base_x = 20 if self.side[item] == 0 else 620
-                                    off = {'wolf': 0, 'sheep': 55, 'cabbage': 110, 'man2': 165}
+                                    off = {'wolf': 0, 'sheep': 55, 'cabbage': 110}
                                     rect = pygame.Rect(base_x + off[item], 320, 60, 60)
                                 if rect.collidepoint(mx, my):
                                     if item in self.passengers: 

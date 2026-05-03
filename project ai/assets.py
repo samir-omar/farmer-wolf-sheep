@@ -10,7 +10,7 @@ def draw_background(screen):
     pygame.draw.rect(screen, (0, 105, 148), (250, 380, 300, 170))
 
 def load_images():
-    names = ['farmer', 'man2', 'wolf', 'sheep', 'cabbage', 'boat']
+    names = ['farmer','wolf', 'sheep', 'cabbage', 'boat']
     images = {}
     for name in names:
         try:
